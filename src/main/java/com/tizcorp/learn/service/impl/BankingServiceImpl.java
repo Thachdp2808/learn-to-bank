@@ -34,24 +34,24 @@ public class BankingServiceImpl implements BankingService {
     }
 
     @Override
-    public void login(User user) {
+    public Optional<User> login(User user) {
         Optional<User> exitedUser = userRepository.findByUsername(user.getUsername());
         if(exitedUser.isEmpty()){
             System.err.println("❌ User not found");
-            return;
+            return Optional.empty();
         }
         if (passwordEncoder.matches(user.getPassword(), exitedUser.get().getPassword())) {
             System.out.println("✅ Login successful");
         } else {
             System.out.println("❌ Invalid password");
         }
+        return exitedUser;
     }
 
     @Override
     public void balance(User user) {
-        Optional<User> exitedUser = userRepository.findByUsername(user.getUsername());
-        if(exitedUser.isEmpty()){
-            System.err.println("❌ User not found");
+        Optional<User> exitedUser = login(user);
+        if (exitedUser.isEmpty()){
             return;
         }
         System.out.println("Số dư tài khoản: " + exitedUser.get().getBalance());

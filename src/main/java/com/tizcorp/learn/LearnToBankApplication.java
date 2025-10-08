@@ -53,6 +53,8 @@ public class LearnToBankApplication implements CommandLineRunner {
         User user = new User();
         System.out.println("Input your Username: ");
         user.setUsername(sc.nextLine());
+        System.out.println("Input your Password: ");
+        user.setPassword(sc.nextLine());
         return user;
     }
 
