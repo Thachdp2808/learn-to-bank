@@ -18,10 +18,10 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long user_id;
+    private long userId;
     private String type;
     private int amount;
-    private String target_user;
+    private long targetUserId;
     private String description;
-    private String created_at;
+    private String createdAt;
 }

@@ -8,7 +8,7 @@ public interface BankingService {
     void register(User user);
     Optional<User> login(User user);
     void balance(User user);
-    void deposit();
-    void transfer();
-    void transactionHistory();
+    void deposit(User user);
+    void transfer(User user);
+    void transactionHistory(User user);
 }

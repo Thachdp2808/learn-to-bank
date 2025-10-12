@@ -39,9 +39,9 @@ public class LearnToBankApplication implements CommandLineRunner {
                 case 1 -> bankingService.register(inputUser());
                 case 2 -> bankingService.login(inputUser());
                 case 3 -> bankingService.balance(inputUserName());
-                case 4 -> bankingService.deposit();
-                case 5 -> bankingService.transfer();
-                case 6 -> bankingService.transactionHistory();
+                case 4 -> bankingService.deposit(inputUserName());
+                case 5 -> bankingService.transfer(inputUserName());
+                case 6 -> bankingService.transactionHistory(inputUserName());
                 case 7 -> System.exit(0);
                 default -> System.out.println("Chọn không hợp lệ!");
             }
