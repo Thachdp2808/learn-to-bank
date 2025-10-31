@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     public void register(UserDTO user) {
         Optional<User> exitedUser = userRepository.findByUsername(user.getUsername());
         if (exitedUser.isPresent()) {
-            throw new IllegalStateException("User already exists");
+            throw new RuntimeException("User already exists");
         }
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
