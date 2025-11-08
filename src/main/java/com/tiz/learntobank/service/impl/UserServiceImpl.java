@@ -2,9 +2,11 @@ package com.tiz.learntobank.service.impl;
 
 import com.tiz.learntobank.dto.UserDTO;
 import com.tiz.learntobank.enity.User;
+import com.tiz.learntobank.exception.CommonException;
 import com.tiz.learntobank.mapper.UserMapper;
 import com.tiz.learntobank.repository.UserRepository;
 import com.tiz.learntobank.service.UserService;
+import com.tiz.learntobank.untils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +27,7 @@ public class UserServiceImpl implements UserService {
     public void register(UserDTO user) {
         Optional<User> exitedUser = userRepository.findByUsername(user.getUsername());
         if (exitedUser.isPresent()) {
-            throw new RuntimeException("User already exists");
+            throw new CommonException(Constants.CommonException.AUTHENTICATION_ERROR);
         }
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
@@ -37,7 +39,7 @@ public class UserServiceImpl implements UserService {
     public void login(UserDTO user) {
         Optional<User> exitedUser = userRepository.findByUsername(user.getUsername());
         if (exitedUser.isEmpty()) {
-            throw new RuntimeException("User already exists");
+            throw new CommonException(Constants.CommonException.AUTHENTICATION_ERROR);
         }
         if (passwordEncoder.matches(user.getPassword(), exitedUser.get().getPassword())) {
             System.out.println("✅ Login successful");
